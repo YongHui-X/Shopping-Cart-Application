@@ -1,257 +1,259 @@
-# Run the Application
+# Shop @ISS — E-Commerce Shopping Cart
 
-1. **Clone repo**
-2. **Open MySQL**  
-   Start your MySQL server.
-
-3. **Initialise the Database**  
-   Create the required database and tables (if not already done).
-
-4. **Run the Application**  
-   Start the Spring Boot app and access it at:  
-
-# Lifecycle:
-## V1.001
-### 03/02 15:03 
-### Modified by : Yong Hui
-### Definitions
-* @Data is the function of lombok. it will create getter and setter automatically, so you have no need to type in by yourself.
-* @Setter(AccessLevel.NONE) means tell the system not create the setter for this attribute. For example id is primary key and you can not modify by yourself. So no need to create setter().
-* @IdClass is used for composite key. Here We have composite key. If just using @Id may have problem. The @IdClass annotation in Java Persistence API (JPA) is used to define a composite primary key for an entity. A composite primary key consists of multiple fields that together uniquely identify an entity. The @IdClass annotation specifies a separate class to represent this composite key.
-
-
-## Design Implementation Guide
-### Modified by : Glenn
-### Do not temper with this.  
-
-## 🧭 Framework - Bootstrap 5.3.8
-
-## 🎨 Design System Components
-
-### 🎨 Color Palette
-
-| Role                 | Hex       | Description                    |
-| -------------------- | --------- | ------------------------------ |
-| **Primary**          | `#0d6efd` | Bootstrap Blue                 |
-| **Secondary**        | `#6c757d` | Gray                           |
-| **Dark Background**  | `#212529` | Dark gray / black tone         |
-| **Light Background** | `#f8f9fa` | Soft white                     |
-| **Success**          | `#198754` | Green (for success messages)   |
-| **Danger**           | `#dc3545` | Red (for errors / alerts)      |
-| **Warning**          | `#ffc107` | Yellow (for caution / prompts) |
-
-### ✍️ Typography
-
-* **Font Family**: System fonts (`-apple-system`, `BlinkMacSystemFont`, `"Segoe UI"`, `Roboto`, etc.)
-* **Headings**: Bold (`600–700`)
-* **Body Text**: Regular (`400`)
-* **Small Text**: `0.875rem`
+Full-stack e-commerce web application built with Spring Boot and React.
 
 ---
 
-## 🗂️ File Structure
+## Screenshots
 
-```
-project/
-├── static/
-│   ├── css/
-│   │   ├── style.css                 (Global styles – BASE)
-│   │   ├── cart.css                  (Cart styles)
-│   │   ├── displayProducts.css       (Product listing styles)
-│   │   ├── detailsProducts.css       (Product details styles)
-│   │   ├── login.css                 (Login / signup styles)
-│   │   └── checkout.css              (Checkout styles)
-│   ├── js/
-│   └── images/
-└── templates/
-    ├── cart.html
-    ├── displayProducts.html
-    ├── detailsProducts.html
-    ├── login.html
-    ├── createAccount.html
-    ├── login_error.html
-    └── checkout.html
+| Product Catalog | Product Details |
+|:---:|:---:|
+| ![Product catalog](src/main/resources/static/images/products.png) | ![Product detail](src/main/resources/static/images/detailed%20products.png) |
+
+| Shopping Cart | Favourites |
+|:---:|:---:|
+| ![Shopping cart](src/main/resources/static/images/shopping%20cart.png) | ![Favourites](src/main/resources/static/images/favs.png) |
+
+| Payment Confirmation | Sign In |
+|:---:|:---:|
+| ![Payment success](src/main/resources/static/images/payment%20.png) | ![Login page](src/main/resources/static/images/login.png) |
+
+---
+
+## Features
+
+- Product browsing with search, category filtering, sorting (name/price/rating), and pagination
+- Shopping cart with quantity management, discount calculation, and selective checkout
+- User authentication with session management
+- Order history and refund processing
+- Product reviews and star ratings
+- Favourites / wishlist
+- Account management (profile editing, password recovery)
+- Responsive design (mobile, tablet, desktop)
+
+---
+
+## Tech Stack
+
+| Layer | Technologies |
+|---|---|
+| **Backend** | Java 17, Spring Boot 3.5.6, Spring Data JPA, Thymeleaf, Maven |
+| **Frontend** | React 19, React Router, React Bootstrap, Axios |
+| **Database** | MySQL 8, Spring Session JDBC |
+| **Styling** | Bootstrap 5.3, Bootstrap Icons |
+
+---
+
+## Architecture Overview
+
+The application follows an MVC + service-layer architecture: **Controller → Service → Repository**.
+
+- **9 Controllers** — ProductController, ShoppingCartDetailController, OrdersController, FavouritesController, ReviewController, LogController, RegisterController, AccountInfoController, CategoryController
+- **9 Services** — Business logic implementations for each domain
+- **9 Repositories** — Spring Data JPA interfaces (including CustomerRepository and OrderDetailRepository)
+- **8 Entities** — Product, Customer, Category, ShoppingCartDetail, Orders, OrderDetail, Review, Favourites (with composite key support via `@IdClass`)
+
+---
+
+## Getting Started
+
+### Prerequisites
+
+- Java 17+
+- Maven
+- MySQL 8
+- Node.js + npm
+
+### 1. Clone the repository
+
+```bash
+git clone <repository-url>
+cd Shopping-Cart-Application
 ```
 
+### 2. Create the MySQL database
+
+```sql
+CREATE DATABASE tst;
+```
+
+### 3. Configure database credentials
+
+Update `src/main/resources/application.properties` with your MySQL username and password:
+
+```properties
+spring.datasource.url=jdbc:mysql://localhost:3306/tst
+spring.datasource.username=root
+spring.datasource.password=root
+```
+
+### 4. Run the backend
+
+```bash
+mvn spring-boot:run
+```
+
+The backend will start at **http://localhost:8080**.
+
+### 5. Run the frontend
+
+```bash
+cd shoppingcartfrontend
+npm install
+npm start
+```
+
+The React frontend will start at **http://localhost:3000**.
+
+### 6. Test accounts
+
+| Username | Password |
+|---|---|
+| `jason` | `1234` |
+| `glenn` | `abcd` |
+| `alice` | `5678` |
+
 ---
 
-## ⚙️ Implementation Steps
+## API Endpoints
 
-### 🧩 Step 1 – Replace CSS Files
+### Products
 
-1. Replace your **`style.css`** with the new global styles.
-2. Update all **page-specific CSS** (`cart.css`, `displayProducts.css`, etc.).
-3. Ensure all pages **link to `style.css` first**, then their page-specific CSS.
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/products` | List all products (pagination, filtering, sorting) |
+| GET | `/products/details/{id}` | Product detail with reviews |
+| GET | `/products/cart/add` | Add product to cart |
+
+### Cart
+
+| Method | Endpoint | Description |
+|---|---|---|
+| POST | `/products/cart/add` | Add product to cart |
+| GET | `/products/cart/view` | View cart contents |
+| POST | `/products/cart/plus` | Increment item quantity |
+| POST | `/products/cart/minus` | Decrement item quantity |
+| POST | `/products/cart/select` | Toggle item selection |
+| POST | `/products/cart/remove` | Remove item from cart |
+| POST | `/products/cart/clear` | Clear all items |
+| POST | `/products/cart/payment` | Proceed to payment |
+| POST | `/products/cart/checkout` | Complete purchase |
+
+### Orders
+
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/api/purchaseHistory/customer` | Get order history |
+| POST | `/api/purchaseHistory/refund/{order_id}/{product_id}` | Process refund |
+
+### Reviews
+
+| Method | Endpoint | Description |
+|---|---|---|
+| POST | `/api/reviews/add/{productId}/{customerId}/{orderId}` | Add review |
+| GET | `/api/reviews/product/{productId}` | Get product reviews |
+| GET | `/api/reviews/product/{productId}/average-rating` | Get average rating |
+
+### Favourites
+
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/favourites` | List favourites |
+| POST | `/favourites/save` | Toggle favourite |
+| POST | `/favourites/remove-product` | Remove favourite |
+| GET | `/favourites/status/{productId}` | Check favourite status |
+| POST | `/favourites/clear` | Clear all favourites |
+
+### Auth & Account
+
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/login` | Login page |
+| POST | `/login/try` | Authenticate |
+| GET | `/login/logout` | Logout |
+| POST | `/login/forgetPassword` | Reset password |
+| POST | `/api/register` | Register account |
+| GET | `/api/register/check/{userName}` | Check username availability |
+| GET | `/api/account-info` | Get account info |
+| POST | `/api/account-info/save` | Update account info |
 
 ---
 
-### 🧱 Step 2 – Update HTML Structure
+## Project Structure
 
-All HTML files should follow this template:
-
-```html
-<!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Shop @ISS – Page Title</title>
-
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-
-  <!-- Custom Styles -->
-  <link href="../static/css/style.css" rel="stylesheet">
-  <link href="../static/css/page-specific.css" rel="stylesheet">
-</head>
-<body>
-  <!-- Page content goes here -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+```
+Shopping-Cart-Application/
+├── pom.xml
+├── src/main/java/com/Assignment/shopping_carts/
+│   ├── Controller/          # 9 controllers (MVC + REST)
+│   ├── Service/             # 9 service implementations
+│   ├── Repository/          # 9 JPA repository interfaces
+│   ├── Model/               # 8 entity classes
+│   ├── DTO/                 # CustomerRegisterDTO
+│   └── Config/              # CorsConfig, WebAppConfig
+├── src/main/resources/
+│   ├── application.properties
+│   ├── templates/           # Thymeleaf views
+│   │   ├── displayProducts.html
+│   │   ├── detailsProducts.html
+│   │   ├── shoppingCart.html
+│   │   ├── checkout.html
+│   │   ├── creditCardDetails.html
+│   │   ├── favourites.html
+│   │   ├── settings.html
+│   │   ├── login.html
+│   │   ├── login_error.html
+│   │   ├── createAccount.html
+│   │   └── forgetPassword.html
+│   └── static/
+│       ├── css/             # Page-specific stylesheets
+│       └── images/          # Screenshots and assets
+└── shoppingcartfrontend/    # React SPA
+    └── src/
+        ├── components/      # Header, NavBar, Sidebar, Favourites
+        ├── pages/           # AccountInfo, PurchaseHistory, Register
+        └── css/             # Frontend stylesheets
 ```
 
 ---
 
-### 🧭 Step 3 – Standard Page Components
+<details>
+<summary>Design System</summary>
 
-#### 🔝 Header
+### Color Palette
 
-```html
-<header class="site-header">
-  <div class="container">
-    <div class="row align-items-center">
-      <div class="col-md-3">
-        <h5 class="logo">Shop @ISS</h5>
-      </div>
-      <div class="col-md-6 text-center d-none d-md-block">
-        <span class="promotional-text">
-          Today's Deals: Free shipping over $80 | 10% off new arrivals
-        </span>
-      </div>
-      <div class="col-md-3">
-        <div class="user-actions d-flex align-items-center justify-content-end gap-2">
-          <a href="#" class="text-white"><i class="bi bi-person-circle fs-4"></i></a>
-          <a th:href="@{/login}" class="btn btn-outline-light btn-sm">Login</a>
-          <a th:href="@{/signup}" class="btn btn-warning btn-sm">Sign Up</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</header>
+| Role | Hex | Description |
+|---|---|---|
+| Primary | `#0d6efd` | Bootstrap Blue |
+| Secondary | `#6c757d` | Gray |
+| Dark Background | `#212529` | Dark gray / black tone |
+| Light Background | `#f8f9fa` | Soft white |
+| Success | `#198754` | Green |
+| Danger | `#dc3545` | Red |
+| Warning | `#ffc107` | Yellow |
+
+### Static Assets
+
+```
+static/
+├── css/
+│   ├── style.css              # Global styles
+│   ├── cart.css
+│   ├── checkout.css
+│   ├── detailsProducts.css
+│   ├── displayProducts.css
+│   ├── favourites.css
+│   ├── login.css
+│   └── settings.css
+└── images/
+    ├── shop-logo.png
+    └── placeholder.png
 ```
 
-#### 🧭 Navigation
-
-```html
-<nav class="navbar navbar-expand-lg navbar-dark site-navbar">
-  <div class="container">
-    <a class="navbar-brand" th:href="@{/products}">
-      <i class="bi bi-grid-3x3-gap me-2"></i>Browse
-    </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link" th:href="@{/settings}"><i class="bi bi-gear me-1"></i>Settings</a></li>
-        <li class="nav-item"><a class="nav-link" th:href="@{/favorites}"><i class="bi bi-heart-fill me-1"></i>Favorites</a></li>
-        <li class="nav-item"><a class="nav-link" th:href="@{/cart}"><i class="bi bi-cart3 me-1"></i>Cart</a></li>
-      </ul>
-    </div>
-  </div>
-</nav>
-```
-
-#### ⚓ Footer
-
-```html
-<footer class="site-footer">
-  <div class="container text-center">
-    <p>&copy; 2025 TEAM_TWO. All rights reserved.</p>
-  </div>
-</footer>
-```
+</details>
 
 ---
 
-## 💡 Key Design Features
+## Credits
 
-1. **Consistent Header & Navigation** – identical structure on all pages
-2. **Card-Based Layouts** – Bootstrap cards with shadows and hover effects
-3. **Form Styling** – floating labels, clear validation, consistent input sizes
-4. **Button Hierarchy**
-   * Primary → `.btn-primary`
-   * Secondary → `.btn-outline-primary`
-   * Destructive → `.btn-outline-danger`
-5. **Spacing System** – use Bootstrap utilities (`mt-3`, `p-5`, etc.)
-
----
-
-## 📱 Responsive Design
-
-| Breakpoint        | Range         | Usage                      |
-| ----------------- | ------------- | -------------------------- |
-| **Mobile**        | `< 576px`     | Stack layouts, hide promos |
-| **Tablet**        | `576 – 768px` | Two-column layouts         |
-| **Desktop**       | `> 768px`     | Full layouts               |
-| **Large Desktop** | `> 992px`     | Wide containers            |
-
-### 📲 Mobile Optimizations
-
-* Hide promotional text
-* Stack forms vertically
-* Collapsible navbar
-* Scrollable tables
-
----
-
-## 🌐 Browser Compatibility
-
-✅ Chrome  |  ✅ Firefox  |  ✅ Safari  |  ✅ Edge  |  ✅ Mobile browsers (iOS & Android)
-
----
-
-## ✅ Testing Checklist
-
-* [ ] CSS loads without errors
-* [ ] Header / Navbar consistent
-* [ ] Forms validate properly
-* [ ] Buttons hover correctly
-* [ ] Cards show proper borders & shadows
-* [ ] Mobile navbar works
-* [ ] Footer pinned at bottom
-* [ ] Colors follow palette
-* [ ] Typography consistent
-* [ ] Icons visible
-
----
-
-## 🧰 Common Issues & Fixes
-
-| Issue                 | Cause               | Solution                                |
-| --------------------- | ------------------- | --------------------------------------- |
-| CSS not loading       | Wrong path          | Use `../static/css/` for relative links |
-| Icons missing         | Missing CDN         | Include Bootstrap Icons CDN in `<head>` |
-| Navbar not collapsing | Missing JS bundle   | Ensure Bootstrap JS bundle is loaded    |
-| Inconsistent spacing  | Custom CSS override | Use Bootstrap spacing utilities         |
-
----
-
-## 🌟 Best Practices
-
-1. **Always load `style.css` first**
-2. **Prefer Bootstrap classes before custom CSS**
-3. **Keep custom CSS minimal & brand-focused**
-4. **Test on multiple devices**
-5. **Use semantic HTML** (`header`, `nav`, `main`, `footer`)
-6. **Ensure accessibility** (ARIA labels, alt text)
-7. **Use clear validation for forms**
-
----
-
-## 🧩 Support & References
-
-* 📘 [Bootstrap 5.3 Docs](https://getbootstrap.com/docs/5.3/)
-* 💠 [Bootstrap Icons](https://icons.getbootstrap.com/)
+Built by **Team Two** @ NUS-ISS
