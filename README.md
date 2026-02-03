@@ -1,3 +1,23 @@
+# Screenshots
+
+### Login 
+<img width="731" height="433" alt="login" src="https://github.com/user-attachments/assets/91e12dbd-8692-4d5b-b9c0-37e8d1c8cbd6" />
+
+### Product homepage
+<img width="782" height="473" alt="products" src="https://github.com/user-attachments/assets/07b36a52-08f4-4795-8c66-2618be6cbcaf" />
+
+### Favourites
+<img width="733" height="364" alt="favs" src="https://github.com/user-attachments/assets/12fc91c3-0624-4d41-be9e-44c6367cf84b" />
+
+### Product Details
+<img width="707" height="424" alt="detailed products" src="https://github.com/user-attachments/assets/580a99ed-7dec-4d31-a150-2fd7338a34e6" />
+
+### Add to cart
+<img width="704" height="266" alt="shopping cart" src="https://github.com/user-attachments/assets/abefaff8-dd7f-4c29-a372-98b52e323884" />
+
+### Payment completion
+<img width="700" height="425" alt="payment " src="https://github.com/user-attachments/assets/86de5ef8-e199-4ef7-be5c-ad5af7c3c964" />
+
 # Run the Application
 
 1. **Clone repo**
@@ -9,6 +29,11 @@
 
 4. **Run the Application**  
    Start the Spring Boot app and access it at:  
+   http://localhost:8080
+
+5. **Login details**
+   Username: glenn
+   Password: abcdefg
 
 # Lifecycle:
 ## V1.001
