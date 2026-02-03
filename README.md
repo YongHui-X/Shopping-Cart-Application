@@ -1,7 +1,13 @@
+#Run: 
+
+1. Open mysql
+2. Initialise DB
+3. Run the app at localhost:8080
+
 # Lifecycle:
 ## V1.001
-### 02/10 15:03 
-### Modified by : Jayson 
+### 03/02 15:03 
+### Modified by : Yong Hui
 ### Definitions
 * @Data is the function of lombok. it will create getter and setter automatically, so you have no need to type in by yourself.
 * @Setter(AccessLevel.NONE) means tell the system not create the setter for this attribute. For example id is primary key and you can not modify by yourself. So no need to create setter().
