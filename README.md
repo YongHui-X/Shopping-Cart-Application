@@ -1,8 +1,14 @@
-#Run: 
+# Run the Application
 
-1. Open mysql
-2. Initialise DB
-3. Run the app at localhost:8080
+1. **Clone repo**
+2. **Open MySQL**  
+   Start your MySQL server.
+
+3. **Initialise the Database**  
+   Create the required database and tables (if not already done).
+
+4. **Run the Application**  
+   Start the Spring Boot app and access it at:  
 
 # Lifecycle:
 ## V1.001
