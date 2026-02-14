@@ -1,140 +1,311 @@
-# Shop @ISS — E-Commerce Shopping Cart
+<div align="center">
 
-Full-stack e-commerce web application built with Spring Boot and React.
+# Shop @ISS
+
+### Full-Stack E-Commerce Shopping Cart Application
+
+[![Java](https://img.shields.io/badge/Java-17-ED8B00?logo=openjdk&logoColor=white)](https://openjdk.org/)
+[![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.5.6-6DB33F?logo=springboot&logoColor=white)](https://spring.io/projects/spring-boot)
+[![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black)](https://react.dev/)
+[![MySQL](https://img.shields.io/badge/MySQL-8-4479A1?logo=mysql&logoColor=white)](https://www.mysql.com/)
+[![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3-7952B3?logo=bootstrap&logoColor=white)](https://getbootstrap.com/)
+
+A production-style e-commerce platform featuring product catalogue browsing, shopping cart management, order processing, customer reviews, and a favourites/wishlist system — built with a layered MVC architecture and server-side rendering.
+
+[Features](#features) · [Tech Stack](#tech-stack) · [Getting Started](#getting-started) · [API Reference](#api-reference) · [Database Schema](#database-schema) · [My Contribution](#my-contribution--favouriteswishlist-feature)
+
+</div>
 
 ---
 
-## Screenshots
+## Demo
 
-### Login
-<img width="731" height="433" alt="login" src="https://github.com/user-attachments/assets/91e12dbd-8692-4d5b-b9c0-37e8d1c8cbd6" />
-
-### Product Homepage
-<img width="782" height="473" alt="products" src="https://github.com/user-attachments/assets/07b36a52-08f4-4795-8c66-2618be6cbcaf" />
-
-### Favourites
-<img width="733" height="364" alt="favs" src="https://github.com/user-attachments/assets/12fc91c3-0624-4d41-be9e-44c6367cf84b" />
-
-### Product Details
-<img width="707" height="424" alt="detailed products" src="https://github.com/user-attachments/assets/580a99ed-7dec-4d31-a150-2fd7338a34e6" />
-
-### Add to Cart
-<img width="704" height="266" alt="shopping cart" src="https://github.com/user-attachments/assets/abefaff8-dd7f-4c29-a372-98b52e323884" />
-
-### Payment Completion
-<img width="700" height="425" alt="payment " src="https://github.com/user-attachments/assets/86de5ef8-e199-4ef7-be5c-ad5af7c3c964" />
+<table>
+  <tr>
+    <td align="center"><strong>Product Catalogue</strong></td>
+    <td align="center"><strong>Product Details & Reviews</strong></td>
+  </tr>
+  <tr>
+    <td><img width="100%" alt="products" src="https://github.com/user-attachments/assets/07b36a52-08f4-4795-8c66-2618be6cbcaf" /></td>
+    <td><img width="100%" alt="detailed products" src="https://github.com/user-attachments/assets/580a99ed-7dec-4d31-a150-2fd7338a34e6" /></td>
+  </tr>
+  <tr>
+    <td align="center"><strong>Favourites / Wishlist</strong></td>
+    <td align="center"><strong>Shopping Cart</strong></td>
+  </tr>
+  <tr>
+    <td><img width="100%" alt="favs" src="https://github.com/user-attachments/assets/12fc91c3-0624-4d41-be9e-44c6367cf84b" /></td>
+    <td><img width="100%" alt="shopping cart" src="https://github.com/user-attachments/assets/abefaff8-dd7f-4c29-a372-98b52e323884" /></td>
+  </tr>
+  <tr>
+    <td align="center"><strong>Login</strong></td>
+    <td align="center"><strong>Checkout & Payment</strong></td>
+  </tr>
+  <tr>
+    <td><img width="100%" alt="login" src="https://github.com/user-attachments/assets/91e12dbd-8692-4d5b-b9c0-37e8d1c8cbd6" /></td>
+    <td><img width="100%" alt="payment" src="https://github.com/user-attachments/assets/86de5ef8-e199-4ef7-be5c-ad5af7c3c964" /></td>
+  </tr>
+</table>
 
 ---
 
 ## Features
 
-- Product browsing with search, category filtering, sorting (name/price/rating), and pagination
-- Shopping cart with quantity management, discount calculation, and selective checkout
-- User authentication with session management
-- Order history and refund processing
-- Product reviews and star ratings
-- Favourites / wishlist
-- Account management (profile editing, password recovery)
-- Responsive design (mobile, tablet, desktop)
+| Category | Capabilities |
+|----------|-------------|
+| **Product Catalogue** | Browse, keyword search, category filtering, multi-criteria sorting (name / price / rating), server-side pagination (10/page) |
+| **Shopping Cart** | Add/remove items, quantity adjustment, automatic discount calculation, selective checkout |
+| **Favourites / Wishlist** | Toggle favourite, view wishlist, bulk clear, post-login resume for unauthenticated users |
+| **Orders & Payments** | Checkout flow, credit card entry, order confirmation, purchase history, per-item refund processing |
+| **Reviews & Ratings** | Star ratings, written reviews (one per product per order), aggregated average rating |
+| **User Accounts** | Registration, session-based authentication, profile management, password recovery |
+| **Responsive UI** | Mobile, tablet, and desktop layouts powered by Bootstrap 5.3 |
 
 ---
 
 ## Tech Stack
 
 | Layer | Technologies |
-|---|---|
-| **Backend** | Java 17, Spring Boot 3.5.6, Spring Data JPA, Thymeleaf, Maven |
-| **Frontend** | React 19, React Router, React Bootstrap, Axios |
+|-------|-------------|
+| **Backend** | Java 17, Spring Boot 3.5.6, Spring MVC, Spring Data JPA (Hibernate), Thymeleaf, Maven |
+| **Frontend** | React 19, React Router 7, React Bootstrap, Axios, Bootstrap Icons |
 | **Database** | MySQL 8, Spring Session JDBC |
-| **Styling** | Bootstrap 5.3, Bootstrap Icons |
+| **Dev Tools** | Lombok, Spring Boot DevTools, H2 (testing) |
 
 ---
 
-## Architecture Overview
+## Architecture
 
-The application follows an MVC + service-layer architecture: **Controller → Service → Repository**.
+The application follows a **layered MVC + service architecture** with clear separation of concerns:
 
-- **9 Controllers** — ProductController, ShoppingCartDetailController, OrdersController, FavouritesController, ReviewController, LogController, RegisterController, AccountInfoController, CategoryController
-- **9 Services** — Business logic implementations for each domain
-- **9 Repositories** — Spring Data JPA interfaces (including CustomerRepository and OrderDetailRepository)
-- **8 Entities** — Product, Customer, Category, ShoppingCartDetail, Orders, OrderDetail, Review, Favourites (with composite key support via `@IdClass`)
+```
+                    ┌─────────────────────────────────────────────┐
+                    │              Client (Browser)               │
+                    └──────────────────┬──────────────────────────┘
+                                       │
+                    ┌──────────────────▼──────────────────────────┐
+                    │         Thymeleaf / React Frontend          │
+                    └──────────────────┬──────────────────────────┘
+                                       │ HTTP
+         ┌─────────────────────────────▼──────────────────────────────┐
+         │                    Controller Layer (9)                     │
+         │  ProductController · FavouritesController · OrdersController│
+         │  ShoppingCartDetailController · ReviewController · ...      │
+         └─────────────────────────────┬──────────────────────────────┘
+                                       │
+         ┌─────────────────────────────▼──────────────────────────────┐
+         │                     Service Layer (9)                       │
+         │  Interface-driven design (FavouriteService → Impl)          │
+         │  @Transactional business logic                              │
+         └─────────────────────────────┬──────────────────────────────┘
+                                       │
+         ┌─────────────────────────────▼──────────────────────────────┐
+         │                   Repository Layer (9)                      │
+         │  Spring Data JPA · Custom JPQL queries · Composite keys     │
+         └─────────────────────────────┬──────────────────────────────┘
+                                       │
+                    ┌──────────────────▼──────────────────────────┐
+                    │              MySQL Database                  │
+                    │          8 tables · 4 composite keys         │
+                    └─────────────────────────────────────────────┘
+```
+
+### Project Structure
+
+```
+Shopping-Cart-Application/
+├── pom.xml
+├── src/main/java/com/Assignment/shopping_carts/
+│   ├── Config/             # CORS, WebMvc configuration
+│   ├── Controller/         # 9 controllers (MVC + REST)
+│   ├── DTO/                # Data transfer objects
+│   ├── Interceptor/        # Request logging
+│   ├── InterfaceMethods/   # Service interfaces
+│   ├── Model/              # 8 JPA entities + 4 composite keys
+│   ├── Repository/         # Spring Data JPA repositories
+│   └── Service/            # Service implementations
+├── src/main/resources/
+│   ├── application.properties
+│   ├── templates/          # 11 Thymeleaf HTML templates
+│   └── static/             # CSS, JS, images
+└── shoppingcartfrontend/   # React SPA
+    └── src/
+        ├── components/     # Header, NavBar, Sidebar
+        ├── pages/          # AccountInfo, PurchaseHistory, Register
+        └── css/            # Frontend stylesheets
+```
 
 ---
 
-## Getting Started
+## Database Schema
 
-### Prerequisites
+8 JPA entities mapped to MySQL tables. Junction tables use `@IdClass` composite primary keys.
 
-- Java 17+
-- Maven
-- MySQL 8
-- Node.js + npm
+### Entity-Relationship Diagram
 
-### 1. Clone the repository
-
-```bash
-git clone <repository-url>
-cd Shopping-Cart-Application
+```
+┌──────────────┐        ┌──────────────────────┐        ┌──────────────┐
+│   Category   │ 1────* │       Product         │ *────1 │   Customer   │
+├──────────────┤        ├──────────────────────┤        ├──────────────┤
+│ categoryId PK│        │ productId PK         │        │ customerId PK│
+│ name         │        │ productName NOT NULL  │        │ fullName     │
+└──────────────┘        │ description (500)     │        │ userName     │
+                        │ imageUrl              │        │ email        │
+                        │ discount [0–1]        │        │ password     │
+                        │ unitPrice [≥0]        │        │ address      │
+                        │ averageRating         │        └──────┬───────┘
+                        │ category_id FK        │               │
+                        └──────┬────────────────┘               │
+                               │                                │
+             ┌─────────────────┼────────────────────────────────┤
+             │                 │                                │
+     ┌───────▼────────┐ ┌─────▼───────────┐ ┌──────────────────▼─┐
+     │  Favourites    │ │ ShoppingCart     │ │      Orders        │
+     │  (junction)    │ │ Detail (junction)│ ├────────────────────┤
+     ├────────────────┤ ├─────────────────┤ │ orderId PK         │
+     │ productId PK/FK│ │ productId PK/FK │ │ customerId FK      │
+     │ customerId PK/FK││ customerId PK/FK│ │ purchaseDate       │
+     └────────────────┘ │ quantity         │ │ unitAmount         │
+                        └─────────────────┘ │ status             │
+                                            └────────┬──────────┘
+                                                     │
+                                        ┌────────────┼────────────┐
+                                        │                         │
+                                ┌───────▼────────┐      ┌────────▼────────┐
+                                │  OrderDetail   │      │     Review      │
+                                │  (junction)    │      │   (junction)    │
+                                ├────────────────┤      ├─────────────────┤
+                                │ orderId PK/FK  │      │ productId PK/FK │
+                                │ productId PK/FK│      │ customerId PK/FK│
+                                │ quantity       │      │ orderId PK/FK   │
+                                │ isRefunded     │      │ rating          │
+                                └────────────────┘      │ description     │
+                                                        └─────────────────┘
 ```
 
-### 2. Create the MySQL database
+### Table Definitions
 
-```sql
-CREATE DATABASE tst;
-```
+<details>
+<summary><strong>category</strong></summary>
 
-### 3. Configure database credentials
+| Column | Type | Constraints |
+|--------|------|-------------|
+| category_id | INT | PK, AUTO_INCREMENT |
+| name | VARCHAR | |
 
-Update `src/main/resources/application.properties` with your MySQL username and password:
+</details>
 
-```properties
-spring.datasource.url=jdbc:mysql://localhost:3306/tst
-spring.datasource.username=root
-spring.datasource.password=root
-```
+<details>
+<summary><strong>customer</strong></summary>
 
-### 4. Run the backend
+| Column | Type | Constraints |
+|--------|------|-------------|
+| customer_id | INT | PK, AUTO_INCREMENT |
+| full_name | VARCHAR | |
+| user_name | VARCHAR | |
+| email | VARCHAR | |
+| password | VARCHAR | |
+| address | VARCHAR | |
 
-```bash
-mvn spring-boot:run
-```
+</details>
 
-The backend will start at **http://localhost:8080**.
+<details>
+<summary><strong>product</strong></summary>
 
-### 5. Run the frontend
+| Column | Type | Constraints |
+|--------|------|-------------|
+| product_id | INT | PK, AUTO_INCREMENT |
+| product_name | VARCHAR | NOT NULL |
+| description | VARCHAR(500) | |
+| image_url | VARCHAR | |
+| discount | DOUBLE | CHECK (0 <= val <= 1) |
+| unit_price | DOUBLE | CHECK (val >= 0) |
+| average_rating | DOUBLE | |
+| category_id | INT | FK -> category |
 
-```bash
-cd shoppingcartfrontend
-npm install
-npm start
-```
+</details>
 
-The React frontend will start at **http://localhost:3000**.
+<details>
+<summary><strong>orders</strong></summary>
 
-### 6. Test accounts
+| Column | Type | Constraints |
+|--------|------|-------------|
+| order_id | INT | PK, AUTO_INCREMENT |
+| customer_id | INT | FK -> customer |
+| purchase_date | DATE | |
+| unit_amount | DOUBLE | |
+| status | VARCHAR | |
 
-| Username | Password |
-|---|---|
-| `jason` | `1234` |
-| `glenn` | `abcd` |
-| `alice` | `5678` |
+</details>
+
+<details>
+<summary><strong>order_detail</strong> — composite PK (order_id, product_id)</summary>
+
+| Column | Type | Constraints |
+|--------|------|-------------|
+| order_id | INT | PK, FK -> orders |
+| product_id | INT | PK, FK -> product |
+| quantity | INT | |
+| is_refunded | BOOLEAN | |
+
+</details>
+
+<details>
+<summary><strong>shopping_cart_detail</strong> — composite PK (product_id, customer_id)</summary>
+
+| Column | Type | Constraints |
+|--------|------|-------------|
+| product_id | INT | PK, FK -> product |
+| customer_id | INT | PK, FK -> customer |
+| quantity | INT | |
+
+</details>
+
+<details>
+<summary><strong>favourites</strong> — composite PK (product_id, customer_id)</summary>
+
+| Column | Type | Constraints |
+|--------|------|-------------|
+| product_id | INT | PK, FK -> product |
+| customer_id | INT | PK, FK -> customer |
+
+</details>
+
+<details>
+<summary><strong>review</strong> — composite PK (product_id, customer_id, order_id)</summary>
+
+| Column | Type | Constraints |
+|--------|------|-------------|
+| product_id | INT | PK, FK -> product |
+| customer_id | INT | PK, FK -> customer |
+| order_id | INT | PK, FK -> orders |
+| rating | INT | |
+| description | VARCHAR | |
+
+> UNIQUE constraint on `(product_id, customer_id, order_id)` ensures one review per product per customer per order.
+
+</details>
 
 ---
 
-## API Endpoints
+## API Reference
 
-### Products
+<details>
+<summary><strong>Products</strong> — 3 endpoints</summary>
 
 | Method | Endpoint | Description |
-|---|---|---|
+|--------|----------|-------------|
 | GET | `/products` | List all products (pagination, filtering, sorting) |
-| GET | `/products/details/{id}` | Product detail with reviews |
+| GET | `/products/details/{id}` | Product detail page with reviews |
 | GET | `/products/cart/add` | Add product to cart |
 
-### Cart
+</details>
+
+<details>
+<summary><strong>Cart</strong> — 9 endpoints</summary>
 
 | Method | Endpoint | Description |
-|---|---|---|
+|--------|----------|-------------|
 | POST | `/products/cart/add` | Add product to cart |
 | GET | `/products/cart/view` | View cart contents |
 | POST | `/products/cart/plus` | Increment item quantity |
@@ -145,35 +316,49 @@ The React frontend will start at **http://localhost:3000**.
 | POST | `/products/cart/payment` | Proceed to payment |
 | POST | `/products/cart/checkout` | Complete purchase |
 
-### Orders
+</details>
+
+<details>
+<summary><strong>Favourites</strong> — 7 endpoints</summary>
 
 | Method | Endpoint | Description |
-|---|---|---|
+|--------|----------|-------------|
+| GET | `/favourites` | View all favourited products |
+| POST | `/favourites/save` | Toggle favourite (add/remove) |
+| GET | `/favourites/customer` | Get favourites for logged-in customer |
+| POST | `/favourites/clear` | Remove all favourites |
+| POST | `/favourites/remove-product` | Remove a single favourite |
+| GET | `/favourites/status/{productId}` | Check if product is favourited |
+| GET | `/favourites/resume` | Resume pending favourite after login |
+
+</details>
+
+<details>
+<summary><strong>Orders</strong> — 2 endpoints</summary>
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
 | GET | `/api/purchaseHistory/customer` | Get order history |
 | POST | `/api/purchaseHistory/refund/{order_id}/{product_id}` | Process refund |
 
-### Reviews
+</details>
+
+<details>
+<summary><strong>Reviews</strong> — 3 endpoints</summary>
 
 | Method | Endpoint | Description |
-|---|---|---|
+|--------|----------|-------------|
 | POST | `/api/reviews/add/{productId}/{customerId}/{orderId}` | Add review |
 | GET | `/api/reviews/product/{productId}` | Get product reviews |
 | GET | `/api/reviews/product/{productId}/average-rating` | Get average rating |
 
-### Favourites
+</details>
+
+<details>
+<summary><strong>Auth & Account</strong> — 8 endpoints</summary>
 
 | Method | Endpoint | Description |
-|---|---|---|
-| GET | `/favourites` | List favourites |
-| POST | `/favourites/save` | Toggle favourite |
-| POST | `/favourites/remove-product` | Remove favourite |
-| GET | `/favourites/status/{productId}` | Check favourite status |
-| POST | `/favourites/clear` | Clear all favourites |
-
-### Auth & Account
-
-| Method | Endpoint | Description |
-|---|---|---|
+|--------|----------|-------------|
 | GET | `/login` | Login page |
 | POST | `/login/try` | Authenticate |
 | GET | `/login/logout` | Logout |
@@ -183,116 +368,80 @@ The React frontend will start at **http://localhost:3000**.
 | GET | `/api/account-info` | Get account info |
 | POST | `/api/account-info/save` | Update account info |
 
----
-
-## Project Structure
-
-```
-Shopping-Cart-Application/
-├── pom.xml
-├── src/main/java/com/Assignment/shopping_carts/
-│   ├── Controller/          # 9 controllers (MVC + REST)
-│   ├── Service/             # 9 service implementations
-│   ├── Repository/          # 9 JPA repository interfaces
-│   ├── Model/               # 8 entity classes
-│   ├── DTO/                 # CustomerRegisterDTO
-│   └── Config/              # CorsConfig, WebAppConfig
-├── src/main/resources/
-│   ├── application.properties
-│   ├── templates/           # Thymeleaf views
-│   │   ├── displayProducts.html
-│   │   ├── detailsProducts.html
-│   │   ├── shoppingCart.html
-│   │   ├── checkout.html
-│   │   ├── creditCardDetails.html
-│   │   ├── favourites.html
-│   │   ├── settings.html
-│   │   ├── login.html
-│   │   ├── login_error.html
-│   │   ├── createAccount.html
-│   │   └── forgetPassword.html
-│   └── static/
-│       ├── css/             # Page-specific stylesheets
-│       └── images/          # Screenshots and assets
-└── shoppingcartfrontend/    # React SPA
-    └── src/
-        ├── components/      # Header, NavBar, Sidebar, Favourites
-        ├── pages/           # AccountInfo, PurchaseHistory, Register
-        └── css/             # Frontend stylesheets
-```
-
----
-
-<details>
-<summary>Design System</summary>
-
-### Color Palette
-
-| Role | Hex | Description |
-|---|---|---|
-| Primary | `#0d6efd` | Bootstrap Blue |
-| Secondary | `#6c757d` | Gray |
-| Dark Background | `#212529` | Dark gray / black tone |
-| Light Background | `#f8f9fa` | Soft white |
-| Success | `#198754` | Green |
-| Danger | `#dc3545` | Red |
-| Warning | `#ffc107` | Yellow |
-
-### Static Assets
-
-```
-static/
-├── css/
-│   ├── style.css              # Global styles
-│   ├── cart.css
-│   ├── checkout.css
-│   ├── detailsProducts.css
-│   ├── displayProducts.css
-│   ├── favourites.css
-│   ├── login.css
-│   └── settings.css
-└── images/
-    ├── shop-logo.png
-    └── placeholder.png
-```
-
 </details>
+
+---
+
+## Getting Started
+
+### Prerequisites
+
+| Tool | Version |
+|------|---------|
+| Java | 17+ |
+| Maven | 3.8+ |
+| MySQL | 8.0+ |
+| Node.js | 18+ |
+
+### Installation
+
+```bash
+# 1. Clone the repository
+git clone <repository-url>
+cd Shopping-Cart-Application
+
+# 2. Create the database
+mysql -u root -p -e "CREATE DATABASE tst;"
+
+# 3. Configure credentials (src/main/resources/application.properties)
+#    spring.datasource.url=jdbc:mysql://localhost:3306/tst
+#    spring.datasource.username=root
+#    spring.datasource.password=root
+
+# 4. Start the backend (http://localhost:8080)
+mvn spring-boot:run
+
+# 5. Start the frontend (http://localhost:3000)
+cd shoppingcartfrontend && npm install && npm start
+```
+
+### Test Accounts
+
+| Username | Password |
+|----------|----------|
+| `jason` | `1234` |
+| `glenn` | `abcd` |
+| `alice` | `5678` |
 
 ---
 
 ## My Contribution — Favourites/Wishlist Feature
 
-I was responsible for designing and implementing the **Favourites (Wishlist)** use case end-to-end across all layers of the application:
+I owned the **Favourites/Wishlist use case end-to-end**, delivering the feature across all layers of the application stack:
 
-### Backend (Spring Boot)
-- **Entity & Composite Key** — Created the `Favourites` JPA entity with `@IdClass(FavouritesId)` to model the many-to-many relationship between `Customer` and `Product` using a composite primary key (`customerId` + `productId`)
-- **Repository** — Wrote custom JPQL queries for fetching favourite products by customer, existence checks, deletion operations, and count aggregation (`FavouritesRepository`)
-- **Service Layer** — Implemented transactional business logic with toggle behaviour: a single `saveFavourites()` method that adds a product if not yet favourited, or removes it if already favourited (`FavouriteServiceImpl`)
-- **Controller** — Built 7 endpoints under `/favourites` handling view, toggle, bulk clear, single remove, status check, and a post-login resume flow for unauthenticated users (`FavouritesController`)
+### What I Built
 
-### Frontend (Thymeleaf)
-- **Favourites Page** (`favourites.html`) — Responsive table view displaying all favourited products with images, pricing, quantity selectors, add-to-cart, view details, and remove buttons
-- **Heart Icon Toggle** — Integrated a favourite toggle button on the product details page with real-time status checking via the `/favourites/status/{id}` endpoint
+| Layer | Work Done |
+|-------|-----------|
+| **Entity & Data Model** | Designed the `Favourites` JPA entity with `@IdClass(FavouritesId)` composite primary key modelling the many-to-many relationship between `Customer` and `Product` |
+| **Repository** | Wrote custom JPQL queries for fetching favourite products, existence checks, deletion, and count aggregation |
+| **Service** | Implemented `@Transactional` business logic with toggle behaviour — a single method that adds if not favourited, removes if already favourited |
+| **Controller** | Built 7 REST/MVC endpoints under `/favourites` for view, toggle, bulk clear, single remove, status check, and post-login resume |
+| **Frontend** | Created the `favourites.html` Thymeleaf template with responsive product table, quantity selectors, add-to-cart, and remove actions; integrated heart icon toggle on product detail pages with real-time status via `/favourites/status/{id}` |
+| **Styling** | Authored `favourites.css` for the wishlist page layout |
 
-### Endpoints Implemented
+### Files Authored (8 files)
 
-| Method | Endpoint                      | Description                            |
-|--------|-------------------------------|----------------------------------------|
-| GET    | `/favourites`                 | View all favourited products           |
-| POST   | `/favourites/save`            | Toggle favourite (add/remove)          |
-| GET    | `/favourites/customer`        | Get favourites for logged-in customer  |
-| POST   | `/favourites/clear`           | Remove all favourites for a customer   |
-| POST   | `/favourites/remove-product`  | Remove a single favourited product     |
-| GET    | `/favourites/status/{id}`     | Check if a product is favourited       |
-| GET    | `/favourites/resume`          | Resume pending favourite after login   |
-
-### Files Authored
-- `Model/Favourites.java` + `Model/compositeKey/FavouritesId.java`
-- `Repository/FavouritesRepository.java`
-- `InterfaceMethods/FavouriteService.java`
-- `Service/FavouriteServiceImpl.java`
-- `Controller/FavouritesController.java`
-- `templates/favourites.html` + `static/css/favourites.css`
+```
+Model/Favourites.java                    # JPA entity
+Model/compositeKey/FavouritesId.java     # Composite primary key
+Repository/FavouritesRepository.java     # Data access + JPQL queries
+InterfaceMethods/FavouriteService.java   # Service interface (7 methods)
+Service/FavouriteServiceImpl.java        # Business logic implementation
+Controller/FavouritesController.java     # 7 endpoints
+templates/favourites.html                # Wishlist UI
+static/css/favourites.css                # Page styling
+```
 
 ---
 
