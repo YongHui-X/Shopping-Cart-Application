@@ -260,6 +260,42 @@ static/
 
 ---
 
+## My Contribution — Favourites/Wishlist Feature
+
+I was responsible for designing and implementing the **Favourites (Wishlist)** use case end-to-end across all layers of the application:
+
+### Backend (Spring Boot)
+- **Entity & Composite Key** — Created the `Favourites` JPA entity with `@IdClass(FavouritesId)` to model the many-to-many relationship between `Customer` and `Product` using a composite primary key (`customerId` + `productId`)
+- **Repository** — Wrote custom JPQL queries for fetching favourite products by customer, existence checks, deletion operations, and count aggregation (`FavouritesRepository`)
+- **Service Layer** — Implemented transactional business logic with toggle behaviour: a single `saveFavourites()` method that adds a product if not yet favourited, or removes it if already favourited (`FavouriteServiceImpl`)
+- **Controller** — Built 7 endpoints under `/favourites` handling view, toggle, bulk clear, single remove, status check, and a post-login resume flow for unauthenticated users (`FavouritesController`)
+
+### Frontend (Thymeleaf)
+- **Favourites Page** (`favourites.html`) — Responsive table view displaying all favourited products with images, pricing, quantity selectors, add-to-cart, view details, and remove buttons
+- **Heart Icon Toggle** — Integrated a favourite toggle button on the product details page with real-time status checking via the `/favourites/status/{id}` endpoint
+
+### Endpoints Implemented
+
+| Method | Endpoint                      | Description                            |
+|--------|-------------------------------|----------------------------------------|
+| GET    | `/favourites`                 | View all favourited products           |
+| POST   | `/favourites/save`            | Toggle favourite (add/remove)          |
+| GET    | `/favourites/customer`        | Get favourites for logged-in customer  |
+| POST   | `/favourites/clear`           | Remove all favourites for a customer   |
+| POST   | `/favourites/remove-product`  | Remove a single favourited product     |
+| GET    | `/favourites/status/{id}`     | Check if a product is favourited       |
+| GET    | `/favourites/resume`          | Resume pending favourite after login   |
+
+### Files Authored
+- `Model/Favourites.java` + `Model/compositeKey/FavouritesId.java`
+- `Repository/FavouritesRepository.java`
+- `InterfaceMethods/FavouriteService.java`
+- `Service/FavouriteServiceImpl.java`
+- `Controller/FavouritesController.java`
+- `templates/favourites.html` + `static/css/favourites.css`
+
+---
+
 ## Credits
 
 Built by **Team Two** @ NUS-ISS
