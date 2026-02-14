@@ -87,27 +87,27 @@ The application follows a **layered MVC + service architecture** with clear sepa
                     │         Thymeleaf / React Frontend          │
                     └──────────────────┬──────────────────────────┘
                                        │ HTTP
-         ┌─────────────────────────────▼──────────────────────────────┐
+         ┌─────────────────────────────▼───────────────────────────────┐
          │                    Controller Layer (9)                     │
          │  ProductController · FavouritesController · OrdersController│
          │  ShoppingCartDetailController · ReviewController · ...      │
-         └─────────────────────────────┬──────────────────────────────┘
+         └─────────────────────────────┬───────────────────────────────┘
                                        │
-         ┌─────────────────────────────▼──────────────────────────────┐
+         ┌─────────────────────────────▼───────────────────────────────┐
          │                     Service Layer (9)                       │
          │  Interface-driven design (FavouriteService → Impl)          │
          │  @Transactional business logic                              │
-         └─────────────────────────────┬──────────────────────────────┘
+         └─────────────────────────────┬───────────────────────────────┘
                                        │
-         ┌─────────────────────────────▼──────────────────────────────┐
+         ┌─────────────────────────────▼───────────────────────────────┐
          │                   Repository Layer (9)                      │
          │  Spring Data JPA · Custom JPQL queries · Composite keys     │
-         └─────────────────────────────┬──────────────────────────────┘
+         └─────────────────────────────┬───────────────────────────────┘
                                        │
-                    ┌──────────────────▼──────────────────────────┐
+                    ┌──────────────────▼───────────────────────────┐
                     │              MySQL Database                  │
                     │          8 tables · 4 composite keys         │
-                    └─────────────────────────────────────────────┘
+                    └──────────────────────────────────────────────┘
 ```
 
 ### Project Structure
@@ -144,10 +144,10 @@ Shopping-Cart-Application/
 ### Entity-Relationship Diagram
 
 ```
-┌──────────────┐        ┌──────────────────────┐        ┌──────────────┐
+┌──────────────┐        ┌───────────────────────┐        ┌──────────────┐
 │   Category   │ 1────* │       Product         │ *────1 │   Customer   │
-├──────────────┤        ├──────────────────────┤        ├──────────────┤
-│ categoryId PK│        │ productId PK         │        │ customerId PK│
+├──────────────┤        ├───────────────────────┤        ├──────────────┤
+│ categoryId PK│        │ productId PK          │        │ customerId PK│
 │ name         │        │ productName NOT NULL  │        │ fullName     │
 └──────────────┘        │ description (500)     │        │ userName     │
                         │ imageUrl              │        │ email        │
@@ -159,15 +159,15 @@ Shopping-Cart-Application/
                                │                                │
              ┌─────────────────┼────────────────────────────────┤
              │                 │                                │
-     ┌───────▼────────┐ ┌─────▼───────────┐ ┌──────────────────▼─┐
-     │  Favourites    │ │ ShoppingCart     │ │      Orders        │
-     │  (junction)    │ │ Detail (junction)│ ├────────────────────┤
-     ├────────────────┤ ├─────────────────┤ │ orderId PK         │
-     │ productId PK/FK│ │ productId PK/FK │ │ customerId FK      │
-     │ customerId PK/FK││ customerId PK/FK│ │ purchaseDate       │
-     └────────────────┘ │ quantity         │ │ unitAmount         │
-                        └─────────────────┘ │ status             │
-                                            └────────┬──────────┘
+     ┌───────▼─────────┐ ┌─────▼────────────┐  ┌──────────────────▼─┐
+     │  Favourites     │ │ ShoppingCart     │  │      Orders        │
+     │  (junction)     │ │ Detail (junction)│  ├────────────────────┤
+     ├──────────────── ┤ ├──────────────────┤  │ orderId PK         │
+     │ productId PK/FK │ │ productId PK/FK  │  │ customerId FK      │
+     │ customerId PK/FK│ │ customerId PK/FK │  │ purchaseDate       │
+     └─────────────────┘ │ quantity         │  │ unitAmount         │
+                         └──────────────────┘  │ status             │
+                                               └────────┬───────────┘
                                                      │
                                         ┌────────────┼────────────┐
                                         │                         │
