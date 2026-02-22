@@ -10,7 +10,7 @@
 [![MySQL](https://img.shields.io/badge/MySQL-8-4479A1?logo=mysql&logoColor=white)](https://www.mysql.com/)
 [![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3-7952B3?logo=bootstrap&logoColor=white)](https://getbootstrap.com/)
 
-A production-style e-commerce platform featuring product catalogue browsing, shopping cart management, order processing, customer reviews, and a favourites/wishlist system — built with a layered MVC architecture and server-side rendering.
+A production-style e-commerce platform featuring product catalogue browsing, shopping cart management, order processing, customer reviews, and a favourites/wishlist system, built with a layered MVC architecture and server-side rendering.
 
 [Features](#features) · [Tech Stack](#tech-stack) · [Getting Started](#getting-started) · [API Reference](#api-reference) · [Database Schema](#database-schema) · [My Contribution](#my-contribution--favouriteswishlist-feature)
 
