@@ -16,23 +16,23 @@ import 'bootstrap/dist/css/bootstrap.min.css';
  */
 function App() {
     function RedirectProducts() {
-        window.location.replace("http://localhost:8080/products");
+        window.location.replace("/products");
     }
 
     function RedirectFavourites() {
-        window.location.replace("http://localhost:8080/favorites");
+        window.location.replace("/favorites");
     }
 
     function RedirectCart() {
-        window.location.replace("http://localhost:8080/products/cart");
+        window.location.replace("/products/cart");
     }
 
     function RedirectLogout() {
-        window.location.replace("http://localhost:8080/login/logout");
+        window.location.replace("/login/logout");
     }
 
     function RedirectLogin() {
-        window.location.replace("http://localhost:8080/login");
+        window.location.replace("/login");
     }
 
   return (

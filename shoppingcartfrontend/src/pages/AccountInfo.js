@@ -42,7 +42,7 @@ export default function AccountInfo() {
 
     const loadAccountInfo = async () => {
         try{
-            const response = await axios.get("http://localhost:8080/api/account-info", {withCredentials:true})
+            const response = await axios.get("/api/account-info", {withCredentials:true})
             console.log(response)
             setCustomerInfo(response.data)
             setFullName(response.data.fullName)
@@ -165,7 +165,7 @@ export default function AccountInfo() {
         };
         setCustomerInfo(updatedCustomerInfo);
         try{
-            const response = await axios.post("http://localhost:8080/api/account-info/save", updatedCustomerInfo);
+            const response = await axios.post("/api/account-info/save", updatedCustomerInfo);
             if(response.status === 200 && response.data === "success"){
                 setSuccessMessage("Account information updated successfully!");
                 setTimeout(() => {

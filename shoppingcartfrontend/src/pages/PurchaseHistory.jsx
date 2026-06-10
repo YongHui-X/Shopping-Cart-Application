@@ -30,7 +30,7 @@ const PurchaseHistory = () => {
   // Load purchase history
   const loadOrders = async () => {
     try {
-      const res = await axios.get("http://localhost:8080/api/purchaseHistory/customer", {withCredentials: true});
+      const res = await axios.get("/api/purchaseHistory/customer", {withCredentials: true});
       const data = Array.isArray(res.data) ? res.data : [res.data];
       setOrders(data);
     } catch (err) {
@@ -52,7 +52,7 @@ const PurchaseHistory = () => {
       return;
     }
     try {
-      const res = await axios.post(`http://localhost:8080/api/purchaseHistory/refund/${orderId}/${productId}`, {}, { withCredentials: true });
+      const res = await axios.post(`/api/purchaseHistory/refund/${orderId}/${productId}`, {}, { withCredentials: true });
       if (res.status === 200) {
         setSuccessMessage(`Refund requested for Order #${orderId}, Product #${productId}`);
         loadOrders();
@@ -71,7 +71,7 @@ const PurchaseHistory = () => {
     if (custId) setCustomerId(custId);
 
     try {
-      const res = await axios.get(`http://localhost:8080/api/reviews/product/${productId}`);
+      const res = await axios.get(`/api/reviews/product/${productId}`);
       const existingReview = res.data.find(
           (r) => r.customerId === customerId && r.orderId === orderId
       );
@@ -105,7 +105,7 @@ const PurchaseHistory = () => {
     };
 
     try {
-      const url = `http://localhost:8080/api/reviews/add/${selectedProductId}/${customerId}/${selectedOrderId}`;
+      const url = `/api/reviews/add/${selectedProductId}/${customerId}/${selectedOrderId}`;
       const res = await axios.post(url, payload, {
         headers: { "Content-Type": "application/json" },
       });
@@ -198,7 +198,7 @@ const PurchaseHistory = () => {
                                         alt={product.productName}
                                         className="product-thumb"
                                         onClick={() =>
-                                            (window.location.href = `http://localhost:8080/products/details/${product.productId}`)
+                                            (window.location.href = `/products/details/${product.productId}`)
                                         }
                                         style={{ cursor: "pointer" }}
                                     />

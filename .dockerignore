@@ -1,0 +1,18 @@
+.git
+.github
+.idea
+.mvn/wrapper/maven-wrapper.jar
+target
+shoppingcartfrontend/node_modules
+shoppingcartfrontend/build
+shoppingcartfrontend/.env.local
+shoppingcartfrontend/.env.development.local
+shoppingcartfrontend/.env.test.local
+shoppingcartfrontend/.env.production.local
+.env
+.env.*
+*.log
+*.tmp
+README.md
+tash list
+tupdatev2

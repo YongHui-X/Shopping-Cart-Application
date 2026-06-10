@@ -39,16 +39,16 @@ export default function Header() {
                 <i className="bi bi-chevron-down text-white"></i>
               </a>
               <ul className="dropdown-menu dropdown-menu-end">
-                <li><a className="dropdown-item" href="http://localhost:3000/#/accountInfo">
+                <li><a className="dropdown-item" href="/app/index.html#/accountinfo">
                   <i className="bi bi-gear me-2"></i>Settings
                 </a></li>
-                <li><a className="dropdown-item" href="http://localhost:3000/#/purchaseHistory">
+                <li><a className="dropdown-item" href="/app/index.html#/purchaseHistory">
                   <i className="bi bi-clock-history me-2"></i>View Purchase History
                 </a></li>
                 <li>
                   <hr className="dropdown-divider"/>
                 </li>
-                <li><a className="dropdown-item" href="http://localhost:3000/#/logout">
+                <li><a className="dropdown-item" href="/app/index.html#/logout">
                   <i className="bi bi-box-arrow-right me-2"></i>Sign out
                 </a></li>
               </ul>

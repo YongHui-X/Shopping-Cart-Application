@@ -49,7 +49,7 @@ function Register() {
         }
 
         try {
-            const response = await fetch('http://localhost:8080/api/register', {
+            const response = await fetch('/api/register', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -66,7 +66,7 @@ function Register() {
             if (response.ok && data.success) {
                 setSuccessMessage(data.message || 'Registration successful!');
                 setTimeout(() => {
-                    window.location.href = 'http://localhost:8080/login';
+                    window.location.href = '/login';
                 }, 2000);
             } else {
                 setMessage(data.message || 'Registration failed.');
@@ -82,7 +82,7 @@ function Register() {
     return (
         <main className="form-signin">
             <div className="text-center mb-3">
-                <a href="http://localhost:8080/products" className="back-btn">
+                <a href="/products" className="back-btn">
                     <i className="bi bi-arrow-left"></i> Back to Homepage
                 </a>
             </div>
@@ -211,7 +211,7 @@ function Register() {
 
                 <div className="text-center mt-3">
                     <p className="mb-0">
-                        Already have an account? <a href="http://localhost:8080/login">Sign in</a>
+                        Already have an account? <a href="/login">Sign in</a>
                     </p>
                 </div>
             </form>

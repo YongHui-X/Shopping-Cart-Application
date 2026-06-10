@@ -4,6 +4,11 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+### Environment / secrets ###
+.env
+.env.*
+!.env.example
+
 ### STS ###
 .apt_generated
 .classpath
@@ -32,24 +37,10 @@ build/
 ### VS Code ###
 .vscode/
 
-./src/main/resources/application.properties
-node_modules
-/shoppingcartfrontend/package.json
-/shoppingcartfrontend/package-lock.json
-<<<<<<< HEAD
-src/main/resources/application.properties
-shoppingcartfrontend/package.json
-shoppingcartfrontend/package-lock.json
-shoppingcartfrontend/package.json
-shoppingcartfrontend/package.json
-shoppingcartfrontend/package-lock.json
-shoppingcartfrontend/package-lock.json
-=======
-package.json
-package-lock.json
-shoppingcartfrontend/package-lock.json
-.gitignore
-shoppingcartfrontend/package-lock.json
-src/main/resources/application.properties
-shoppingcartfrontend/package.json
->>>>>>> eb0c0dfb811039608cdcf6ebc529f29dc886f08e
+### Node ###
+node_modules/
+shoppingcartfrontend/node_modules/
+shoppingcartfrontend/build/
+
+### Logs ###
+*.log
