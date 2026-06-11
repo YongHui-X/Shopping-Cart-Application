@@ -10,7 +10,7 @@
 [![MySQL](https://img.shields.io/badge/MySQL-8-4479A1?logo=mysql&logoColor=white)](https://www.mysql.com/)
 [![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3-7952B3?logo=bootstrap&logoColor=white)](https://getbootstrap.com/)
 
-A production-style e-commerce platform featuring product catalogue browsing, shopping cart management, order processing, customer reviews, and a favourites/wishlist system, built with a layered MVC architecture and server-side rendering.
+A full stack shopping cart application for browsing products, saving favourites, managing a cart, checking out, and viewing past orders. The project was first built and tested locally, then deployed online so it can be accessed as a live web application.
 
 [Features](#features) · [Tech Stack](#tech-stack) · [Screenshots](#screenshots) · [Railway Deployment](#railway-deployment) · [Getting Started](#getting-started) · [API Reference](#api-reference) · [Database Schema](#database-schema) · [My Contribution](#my-contribution--favouriteswishlist-feature)
 
@@ -22,7 +22,7 @@ A production-style e-commerce platform featuring product catalogue browsing, sho
 
 ### Local Development
 
-These screenshots were captured from the original localhost development setup while the feature work was being built and tested locally.
+These screenshots were captured from the original localhost setup during development and testing.
 
 <table>
   <tr>
@@ -53,9 +53,9 @@ These screenshots were captured from the original localhost development setup wh
 
 ### Railway Deployment
 
-After validating the application locally, I containerized the full stack with Docker and deployed it on **Railway**. Railway is a cloud deployment platform that can build directly from a GitHub repository, run the application as a managed service, provide public networking, and attach managed databases such as MySQL through environment variables.
+After the local version was working, I deployed the application on **Railway** so it could run as a public web app. Railway builds the project from GitHub, hosts the application online, and provides a managed MySQL database for the live version.
 
-In this deployment, the Spring Boot backend serves the Thymeleaf pages and the compiled React assets from one Dockerized service. Railway provides the public application URL, health checks, automatic redeployments from the `main` branch, and a managed MySQL database for the deployed environment.
+For this deployment, the app runs from a Docker image and is connected to Railway MySQL. New commits pushed to the `main` branch can be redeployed through Railway, which makes the project easier to share and demonstrate outside a local machine.
 
 Live deployment:
 
