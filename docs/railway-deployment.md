@@ -68,3 +68,18 @@ Then test:
 /login
 /register
 ```
+
+## Seed demo data
+
+The repository includes SQL scripts for products, categories, customers, orders,
+and reviews. To load them into Railway MySQL once, set these variables on the app
+service:
+
+```text
+APP_SEED_DATABASE=true
+APP_RESET_DATABASE_BEFORE_SEED=true
+```
+
+Redeploy the app. After `/products` shows product data, remove those two
+variables or set both to `false`, then redeploy again. Leaving reset enabled will
+clear and reload the demo data on every restart.
