@@ -31,14 +31,39 @@ public class DatabaseSeeder implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) {
-        if (!seedDatabase) {
+        Integer productCount = jdbcTemplate.queryForObject("SELECT COUNT(*) FROM product", Integer.class);
+        boolean productTableIsEmpty = productCount == null || productCount == 0;
+
+        if (!seedDatabase && !productTableIsEmpty) {
+            System.out.println("[DatabaseSeeder] Seed disabled and product table already has data.");
             return;
         }
 
         if (resetDatabaseBeforeSeed) {
             resetTables();
+            seedAllDemoData();
+            return;
         }
 
+        if (productTableIsEmpty) {
+            seedProductsAndCategoriesOnly();
+            return;
+        }
+
+        seedAllDemoData();
+    }
+
+    private void seedProductsAndCategoriesOnly() {
+        ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
+        populator.setSqlScriptEncoding("UTF-8");
+        populator.addScripts(
+                new ClassPathResource("static/mysqlScripts/productAndCategoryScripts.sql"));
+        populator.execute(dataSource);
+
+        System.out.println("[DatabaseSeeder] Product and category seed data loaded.");
+    }
+
+    private void seedAllDemoData() {
         ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
         populator.setSqlScriptEncoding("UTF-8");
         populator.addScripts(
@@ -47,7 +72,7 @@ public class DatabaseSeeder implements ApplicationRunner {
                 new ClassPathResource("static/mysqlScripts/ReviewScript.sql"));
         populator.execute(dataSource);
 
-        System.out.println("[DatabaseSeeder] Seed data loaded.");
+        System.out.println("[DatabaseSeeder] Full demo seed data loaded.");
     }
 
     private void resetTables() {

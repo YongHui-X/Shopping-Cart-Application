@@ -72,8 +72,11 @@ Then test:
 ## Seed demo data
 
 The repository includes SQL scripts for products, categories, customers, orders,
-and reviews. To load them into Railway MySQL once, set these variables on the app
-service:
+and reviews. If the product table is empty, the app automatically loads products
+and categories on startup so the catalogue has product names and image URLs.
+
+To reset and load the full demo dataset, including customers, orders, and
+reviews, set these variables on the app service:
 
 ```text
 APP_SEED_DATABASE=true
