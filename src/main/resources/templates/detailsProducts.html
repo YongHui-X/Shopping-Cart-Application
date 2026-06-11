@@ -308,6 +308,11 @@
                     body: body
                 });
 
+                if (reply.redirected || reply.url.includes('/login')) {
+                    window.location.href = reply.url;
+                    return;
+                }
+
                 if (reply.ok) {
                     icon.classList.toggle("bi-heart");
                     icon.classList.toggle("bi-heart-fill");

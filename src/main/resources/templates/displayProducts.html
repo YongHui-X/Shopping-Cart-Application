@@ -260,6 +260,11 @@
                         body: `productId=${encodeURIComponent(productId)}`
                     });
 
+                    if (response.redirected || response.url.includes('/login')) {
+                        window.location.href = response.url;
+                        return;
+                    }
+
                     if (!response.ok) throw new Error('Toggle failed');
 
                     const result = await response.text();
