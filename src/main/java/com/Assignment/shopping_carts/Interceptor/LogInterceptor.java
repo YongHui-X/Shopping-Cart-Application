@@ -68,7 +68,7 @@ public class LogInterceptor implements HandlerInterceptor {
             else if
             (uri.equals("/favourites/save") && method.equalsIgnoreCase("POST"))
             {
-                session.setAttribute("pendingActionType", "favourite");
+                session.setAttribute("pendingActionType", "favourites");
                 session.setAttribute("pendingProductId", request.getParameter("productId"));
                 session.setAttribute("redirectAfterLogin", "/favourites/resume");
                 LOGGER.info("[Interceptor] Captured pending FAVOURITE add: productId={}",

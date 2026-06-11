@@ -22,7 +22,7 @@ import java.util.Arrays;
 @EnableWebMvc
 public class CorsConfig implements WebMvcConfigurer {
 
-    @Value("${APP_CORS_ALLOWED_ORIGINS:http://localhost:3000,http://localhost:3001,https://nightlyaffair.github.io}")
+    @Value("${APP_CORS_ALLOWED_ORIGINS:http://localhost:3000,http://localhost:3001,https://nightlyaffair.github.io,https://*.up.railway.app,https://*.railway.app}")
     private String allowedOrigins;
 
     @Override
