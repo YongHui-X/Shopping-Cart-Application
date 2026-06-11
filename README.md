@@ -12,13 +12,17 @@
 
 A production-style e-commerce platform featuring product catalogue browsing, shopping cart management, order processing, customer reviews, and a favourites/wishlist system, built with a layered MVC architecture and server-side rendering.
 
-[Features](#features) · [Tech Stack](#tech-stack) · [Getting Started](#getting-started) · [API Reference](#api-reference) · [Database Schema](#database-schema) · [My Contribution](#my-contribution--favouriteswishlist-feature)
+[Features](#features) · [Tech Stack](#tech-stack) · [Screenshots](#screenshots) · [Railway Deployment](#railway-deployment) · [Getting Started](#getting-started) · [API Reference](#api-reference) · [Database Schema](#database-schema) · [My Contribution](#my-contribution--favouriteswishlist-feature)
 
 </div>
 
 ---
 
-## Demo
+## Screenshots
+
+### Local Development
+
+These screenshots were captured from the original localhost development setup while the feature work was being built and tested locally.
 
 <table>
   <tr>
@@ -47,6 +51,45 @@ A production-style e-commerce platform featuring product catalogue browsing, sho
   </tr>
 </table>
 
+### Railway Deployment
+
+After validating the application locally, I containerized the full stack with Docker and deployed it on **Railway**. Railway is a cloud deployment platform that can build directly from a GitHub repository, run the application as a managed service, provide public networking, and attach managed databases such as MySQL through environment variables.
+
+In this deployment, the Spring Boot backend serves the Thymeleaf pages and the compiled React assets from one Dockerized service. Railway provides the public application URL, health checks, automatic redeployments from the `main` branch, and a managed MySQL database for the deployed environment.
+
+Live deployment:
+
+```text
+https://shop-iss.up.railway.app
+```
+
+<table>
+  <tr>
+    <td align="center"><strong>Railway Home / Product Catalogue</strong></td>
+    <td align="center"><strong>Product Details</strong></td>
+  </tr>
+  <tr>
+    <td><img width="100%" alt="Railway deployed homepage" src="docs/images/Homepage.png" /></td>
+    <td><img width="100%" alt="Railway deployed product details" src="docs/images/productdetails.png" /></td>
+  </tr>
+  <tr>
+    <td align="center"><strong>Favourites / Wishlist</strong></td>
+    <td align="center"><strong>Shopping Cart</strong></td>
+  </tr>
+  <tr>
+    <td><img width="100%" alt="Railway deployed favourites page" src="docs/images/favourites.png" /></td>
+    <td><img width="100%" alt="Railway deployed cart page" src="docs/images/cart.png" /></td>
+  </tr>
+  <tr>
+    <td align="center"><strong>Checkout</strong></td>
+    <td align="center"><strong>Account Profile</strong></td>
+  </tr>
+  <tr>
+    <td><img width="100%" alt="Railway deployed checkout page" src="docs/images/checkout.png" /></td>
+    <td><img width="100%" alt="Railway deployed account profile page" src="docs/images/profile.png" /></td>
+  </tr>
+</table>
+
 ---
 
 ## Features
@@ -70,6 +113,7 @@ A production-style e-commerce platform featuring product catalogue browsing, sho
 | **Backend** | Java 17, Spring Boot 3.5.6, Spring MVC, Spring Data JPA (Hibernate), Thymeleaf, Maven |
 | **Frontend** | React 19, React Router 7, React Bootstrap, Axios, Bootstrap Icons |
 | **Database** | MySQL 8, Spring Session JDBC |
+| **Deployment** | Docker, Railway, Railway MySQL, GitHub Actions |
 | **Dev Tools** | Lombok, Spring Boot DevTools, H2 (testing) |
 
 ---
