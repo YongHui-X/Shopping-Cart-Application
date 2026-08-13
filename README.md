@@ -10,9 +10,9 @@
 [![MySQL](https://img.shields.io/badge/MySQL-8-4479A1?logo=mysql&logoColor=white)](https://www.mysql.com/)
 [![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3-7952B3?logo=bootstrap&logoColor=white)](https://getbootstrap.com/)
 
-A full stack shopping cart application for browsing products, saving favourites, managing a cart, checking out, and viewing past orders. The project was first built and tested locally, then deployed online so it can be accessed as a live web application.
+A full stack shopping cart application for browsing products, saving favourites, managing a cart, checking out, and viewing past orders. The project was originally built and tested on localhost with a local MySQL database. It was later packaged with Docker and deployed to Railway with a Railway managed MySQL database. That deployment is no longer active, so this repository does not provide a live application link.
 
-[Features](#features) · [Tech Stack](#tech-stack) · [Screenshots](#screenshots) · [Railway Deployment](#railway-deployment) · [Getting Started](#getting-started) · [API Reference](#api-reference) · [Database Schema](#database-schema) · [My Contribution](#my-contribution--favouriteswishlist-feature)
+[Features](#features) · [Tech Stack](#tech-stack) · [Screenshots](#screenshots) · [Deployment History](#deployment-history) · [Getting Started](#getting-started) · [API Reference](#api-reference) · [Database Schema](#database-schema) · [My Contribution](#my-contribution--favouriteswishlist-feature)
 
 </div>
 
@@ -51,17 +51,11 @@ These screenshots were captured from the original localhost setup during develop
   </tr>
 </table>
 
-### Railway Deployment
+### Former Railway Deployment
 
-After the local version was working, I deployed the application on **Railway** so it could run as a public web app. Railway builds the project from GitHub, hosts the application online, and provides a managed MySQL database for the live version.
+After the localhost version was working, I deployed the application to **Railway** as a public demonstration. These screenshots show that former deployment. The Railway service is no longer running.
 
-For this deployment, the app runs from a Docker image and is connected to Railway MySQL. New commits pushed to the `main` branch can be redeployed through Railway, which makes the project easier to share and demonstrate outside a local machine.
-
-Live deployment:
-
-```text
-https://shop-iss.up.railway.app
-```
+For that deployment, Railway built the root `Dockerfile`. The Docker build compiled the React frontend, copied it into the Spring Boot static resources, packaged the backend as a JAR, and ran both as one container. The application connected to a Railway managed MySQL service through environment variables. MySQL therefore applies to both stages of the project: a local MySQL instance during development and Railway MySQL during the former hosted deployment.
 
 <table>
   <tr>
@@ -112,9 +106,24 @@ https://shop-iss.up.railway.app
 |-------|-------------|
 | **Backend** | Java 17, Spring Boot 3.5.6, Spring MVC, Spring Data JPA (Hibernate), Thymeleaf, Maven |
 | **Frontend** | React 19, React Router 7, React Bootstrap, Axios, Bootstrap Icons |
-| **Database** | MySQL 8, Spring Session JDBC |
-| **Deployment** | Docker, Railway, Railway MySQL, GitHub Actions |
-| **Dev Tools** | Lombok, Spring Boot DevTools, H2 (testing) |
+| **Database** | MySQL 8 locally, Railway managed MySQL for the former deployment, Spring Session JDBC |
+| **Deployment** | Docker, Railway (historical deployment), GitHub Actions for tests and image builds |
+| **Dev & Test Tools** | Lombok, Spring Boot DevTools, H2 in-memory database for tests |
+
+---
+
+## Deployment History
+
+The project went through two operating environments:
+
+| Stage | Application runtime | Database | Status |
+|-------|---------------------|----------|--------|
+| **Original development** | Spring Boot and React development servers on localhost | Local MySQL 8 database named `tst` | Can still be reproduced locally |
+| **Later deployment** | A single Docker container on Railway containing the React production build and Spring Boot JAR | Railway managed MySQL | No longer active |
+
+The checked-in `Dockerfile` and `railway.json` preserve the former deployment configuration. At runtime, `application.properties` first accepts standard `SPRING_DATASOURCE_*` variables, then Railway style `MYSQL*` variables, and finally falls back to the localhost MySQL defaults. H2 is configured only under `src/test/resources` and is used for automated tests, not as the development or Railway database.
+
+The historical setup steps are retained in [docs/railway-deployment.md](docs/railway-deployment.md) as deployment documentation. They do not indicate that a public instance is currently available.
 
 ---
 
@@ -149,7 +158,7 @@ The application follows a **layered MVC + service architecture** with clear sepa
          └─────────────────────────────┬───────────────────────────────┘
                                        │
                     ┌──────────────────▼───────────────────────────┐
-                    │              MySQL Database                  │
+                    │     MySQL 8 (local or Railway managed)      │
                     │          8 tables · 4 composite keys         │
                     └──────────────────────────────────────────────┘
 ```
@@ -418,6 +427,8 @@ Shopping-Cart-Application/
 
 ## Getting Started
 
+The instructions below reproduce the original localhost setup. They do not require Railway.
+
 ### Prerequisites
 
 | Tool | Version |
@@ -427,27 +438,31 @@ Shopping-Cart-Application/
 | MySQL | 8.0+ |
 | Node.js | 18+ |
 
-### Installation
+### Local Installation
 
-```bash
+```powershell
 # 1. Clone the repository
 git clone <repository-url>
-cd Shopping-Cart-Application
+Set-Location Shopping-Cart-Application
 
-# 2. Create the database
+# 2. Create the local MySQL database
 mysql -u root -p -e "CREATE DATABASE tst;"
 
-# 3. Configure credentials (src/main/resources/application.properties)
-#    spring.datasource.url=jdbc:mysql://localhost:3306/tst
-#    spring.datasource.username=root
-#    spring.datasource.password=root
+# 3. Set credentials if they differ from the local defaults
+$env:SPRING_DATASOURCE_URL = "jdbc:mysql://localhost:3306/tst"
+$env:SPRING_DATASOURCE_USERNAME = "root"
+$env:SPRING_DATASOURCE_PASSWORD = "root"
 
 # 4. Start the backend (http://localhost:8080)
-mvn spring-boot:run
+.\mvnw.cmd spring-boot:run
 
-# 5. Start the frontend (http://localhost:3000)
-cd shoppingcartfrontend && npm install && npm start
+# 5. In a second PowerShell window, start the React development server
+Set-Location shoppingcartfrontend
+npm install
+npm start
 ```
+
+The React development server runs at `http://localhost:3000`. The Spring Boot and Thymeleaf application runs at `http://localhost:8080`.
 
 ### Test Accounts
 
